@@ -34,7 +34,7 @@ html {
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 0;
   overflow-x: hidden;
   background:
     radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.12), transparent 34%),
@@ -1275,8 +1275,13 @@ a {
   }
 
   .site-header {
-    inset: max(10px, env(safe-area-inset-top)) 0 auto;
-    width: calc(100vw - 20px);
+    /* Keep the mobile header geometrically centered on every viewport,
+       including devices with asymmetric safe-area insets. */
+    --mobile-header-gutter: max(8px, env(safe-area-inset-left), env(safe-area-inset-right));
+    inset: max(10px, env(safe-area-inset-top)) var(--mobile-header-gutter) auto;
+    width: auto;
+    max-width: none;
+    margin-inline: 0;
     padding: 10px;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -1306,8 +1311,11 @@ a {
 
   .desktop-nav {
     grid-area: nav;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-self: stretch;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
     gap: 4px;
     padding-top: 8px;
     border-top: 1px solid var(--line-soft);
@@ -1315,9 +1323,13 @@ a {
   }
 
   .desktop-nav a {
+    flex: 1 1 0;
+    min-width: 0;
     min-height: 36px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     border-radius: 9px;
     color: #aaa8b1;
   }
@@ -1498,7 +1510,7 @@ a {
   }
 
   .site-header {
-    width: calc(100vw - 16px);
+    --mobile-header-gutter: max(8px, env(safe-area-inset-left), env(safe-area-inset-right));
   }
 
   .brand-mark {
@@ -1709,6 +1721,28 @@ a {
     align-items: flex-start;
     flex-direction: column;
     gap: 18px;
+  }
+}
+
+
+@media (max-width: 340px) {
+  .site-header {
+    padding-inline: 8px;
+    gap: 8px;
+  }
+
+  .desktop-nav {
+    gap: 2px;
+    font-size: 0.655rem;
+  }
+
+  .desktop-nav a {
+    min-height: 34px;
+    padding-inline: 2px;
+  }
+
+  .header-cta {
+    padding-inline: 10px;
   }
 }
 
