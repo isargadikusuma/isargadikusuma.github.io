@@ -434,22 +434,40 @@ const capabilities = [
 
       const heroVisual = document.querySelector('.hero-visual');
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       if (heroVisual && !reduceMotion) {
-        heroVisual.addEventListener('pointermove', (event) => {
+        const updateHeroGlow = (event) => {
           const rect = heroVisual.getBoundingClientRect();
-          const x = (event.clientX - rect.left) / rect.width - 0.5;
-          const y = (event.clientY - rect.top) / rect.height - 0.5;
-          heroVisual.style.setProperty('--tilt-x', `${y * -4}deg`);
-          heroVisual.style.setProperty('--tilt-y', `${x * 5}deg`);
           heroVisual.style.setProperty('--glow-x', `${event.clientX - rect.left}px`);
           heroVisual.style.setProperty('--glow-y', `${event.clientY - rect.top}px`);
-        });
+          return rect;
+        };
 
-        heroVisual.addEventListener('pointerleave', () => {
-          heroVisual.style.setProperty('--tilt-x', '0deg');
-          heroVisual.style.setProperty('--tilt-y', '0deg');
-        });
+        if (finePointer) {
+          heroVisual.addEventListener('pointermove', (event) => {
+            const rect = updateHeroGlow(event);
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            heroVisual.style.setProperty('--tilt-x', `${y * -4}deg`);
+            heroVisual.style.setProperty('--tilt-y', `${x * 5}deg`);
+          });
+
+          heroVisual.addEventListener('pointerleave', () => {
+            heroVisual.style.setProperty('--tilt-x', '0deg');
+            heroVisual.style.setProperty('--tilt-y', '0deg');
+          });
+        } else {
+          heroVisual.addEventListener('pointerdown', (event) => {
+            updateHeroGlow(event);
+            heroVisual.classList.add('is-touching');
+          }, { passive: true });
+
+          const clearTouchState = () => heroVisual.classList.remove('is-touching');
+          heroVisual.addEventListener('pointerup', clearTouchState, { passive: true });
+          heroVisual.addEventListener('pointercancel', clearTouchState, { passive: true });
+          heroVisual.addEventListener('pointerleave', clearTouchState, { passive: true });
+        }
       }
     </script>
   </body>
