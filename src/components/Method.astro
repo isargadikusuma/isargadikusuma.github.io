@@ -1,0 +1,28 @@
+---
+import { method } from '../data/portfolio';
+---
+
+<section class="method-section section-shell" id="method">
+  <div class="method-intro reveal">
+    <p class="eyebrow">03 / HOW I MOVE WORK</p>
+    <h2>Clarity is a delivery tool.</h2>
+    <p>I like a process that is structured enough to keep direction, but flexible enough to survive reality.</p>
+  </div>
+
+  <div class="method-flow">
+    <div class="method-line" aria-hidden="true"><span></span></div>
+    {method.map((step) => (
+      <article class="method-step reveal">
+        <div class="method-index">{step.index}</div>
+        <div class="method-verb">{step.verb}</div>
+        <h3>{step.title}</h3>
+        <p>{step.body}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="method-note reveal">
+    <span>MY DEFAULT QUESTION</span>
+    <blockquote>“What has to stay true when this gets more complex?”</blockquote>
+  </div>
+</section>

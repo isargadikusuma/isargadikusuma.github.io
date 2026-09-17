@@ -1,0 +1,97 @@
+---
+import { lenses } from '../data/portfolio';
+---
+
+<section class="hero section-shell" id="top">
+  <div class="hero-aura aura-one" aria-hidden="true"></div>
+  <div class="hero-aura aura-two" aria-hidden="true"></div>
+
+  <div class="hero-copy reveal">
+    <div class="hero-kicker">
+      <span class="kicker-line"></span>
+      Project management / systems / product
+    </div>
+
+    <h1>
+      Complex work.
+      <span>Clear direction.</span>
+    </h1>
+
+    <p class="hero-lede">
+      I help teams turn operational complexity into products that are easier to understand, easier to ship, and easier to run.
+    </p>
+
+    <div class="hero-actions">
+      <a class="button button-primary" href="#work">
+        <span>Explore my work</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </a>
+      <a class="button button-ghost" href="#range">Why I&apos;m useful</a>
+    </div>
+
+    <div class="hero-meta" aria-label="Professional focus">
+      <div><span>Based in</span><strong>Indonesia</strong></div>
+      <div><span>Focus</span><strong>Operational products</strong></div>
+      <div><span>Bias</span><strong>Clarity over noise</strong></div>
+    </div>
+  </div>
+
+  <div class="hero-console reveal" data-console>
+    <div class="console-topbar">
+      <div class="console-brand">
+        <span class="console-mark"></span>
+        <span>OPERATING VIEW</span>
+      </div>
+      <span class="console-state"><i></i> ACTIVE</span>
+    </div>
+
+    <div class="console-map" aria-hidden="true">
+      <div class="map-grid"></div>
+      <svg class="flow-lines" viewBox="0 0 620 300" preserveAspectRatio="none">
+        <path class="flow-path path-a" d="M45 154 C140 154, 144 58, 246 58 S340 146, 414 146 S485 82, 576 82" />
+        <path class="flow-path path-b" d="M45 154 C148 154, 154 244, 255 244 S347 176, 414 176 S490 236, 576 236" />
+      </svg>
+      <div class="map-node node-origin"><span>REQ</span></div>
+      <div class="map-node node-a"><span>FLOW</span></div>
+      <div class="map-node node-b"><span>DATA</span></div>
+      <div class="map-node node-c"><span>UX</span></div>
+      <div class="map-node node-end"><span>SHIP</span></div>
+      <div class="signal-pulse pulse-a"></div>
+      <div class="signal-pulse pulse-b"></div>
+    </div>
+
+    <div class="console-switcher" role="group" aria-label="Professional lenses">
+      {lenses.map((lens, index) => (
+        <button
+          type="button"
+          class:list={["console-tab", { "is-active": index === 0 }]}
+          data-lens-trigger={lens.key}
+          aria-pressed={index === 0 ? 'true' : 'false'}
+        >
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          {lens.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="console-panels">
+      {lenses.map((lens, index) => (
+        <article class:list={["console-panel", { "is-active": index === 0 }]} data-lens={lens.key}>
+          <p>{lens.kicker}</p>
+          <h2>{lens.title}</h2>
+          <div class="panel-bottom">
+            <span>{lens.body}</span>
+            <div class="panel-chips">
+              {lens.chips.map((chip) => <em>{chip}</em>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <a class="scroll-cue" href="#signal" aria-label="Scroll to continue">
+    <span>SCROLL</span>
+    <i></i>
+  </a>
+</section>

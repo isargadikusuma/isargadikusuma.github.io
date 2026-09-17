@@ -1,0 +1,43 @@
+---
+import { advantages, capabilityGroups } from '../data/portfolio';
+---
+
+<section class="range-section section-shell" id="range">
+  <div class="section-intro reveal">
+    <p class="eyebrow">02 / WHY ME</p>
+    <h2>I&apos;m useful in the messy middle.</h2>
+    <p>
+      Where business pressure, product decisions, engineering constraints, and operator experience collide. That is the part I like making legible.
+    </p>
+  </div>
+
+  <div class="advantage-grid">
+    {advantages.map((item) => (
+      <article class="advantage-card reveal">
+        <div class="advantage-top">
+          <span>{item.number}</span>
+          <small>{item.signal}</small>
+        </div>
+        <h3>{item.title}</h3>
+        <p>{item.body}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="capability-matrix reveal">
+    <div class="matrix-head">
+      <span>OPERATING MATRIX</span>
+      <span>01 / 04</span>
+    </div>
+    <div class="matrix-grid">
+      {capabilityGroups.map((group, index) => (
+        <div class="matrix-column">
+          <div class="matrix-label"><span>0{index + 1}</span>{group.label}</div>
+          <ul>
+            {group.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

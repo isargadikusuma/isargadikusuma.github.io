@@ -1,0 +1,77 @@
+---
+import { projects } from '../data/portfolio';
+---
+
+<section class="projects-section section-shell" id="work">
+  <div class="projects-heading reveal">
+    <div>
+      <p class="eyebrow">01 / SELECTED SYSTEMS</p>
+      <h2>Work built around real operations.</h2>
+    </div>
+    <p>Not isolated screens. Connected workflows, rules, states, people, and decisions.</p>
+  </div>
+
+  <div class="project-list">
+    {projects.map((project) => (
+      <article class={`project-card project-${project.accent} reveal`} data-project>
+        <div class="project-copy">
+          <div class="project-number">{project.index}</div>
+          <div class="project-title-wrap">
+            <p>{project.subtitle}</p>
+            <h3>{project.title}</h3>
+          </div>
+          <p class="project-description">{project.description}</p>
+          <div class="project-contribution">
+            <span>MY LANE</span>
+            <strong>{project.contribution}</strong>
+          </div>
+          <div class="project-tags">
+            {project.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+
+        <div class="project-visual" aria-label={`${project.title} system visualization`}>
+          <div class="visual-head">
+            <span>{project.metric}</span>
+            <i></i>
+          </div>
+          <div class="visual-screen">
+            <div class="visual-sidebar">
+              <span class="visual-logo"></span>
+              {project.modules.map((module, index) => (
+                <span class:list={["side-item", { active: index === 0 }]}>{module.slice(0, 1)}</span>
+              ))}
+            </div>
+            <div class="visual-main">
+              <div class="visual-toolbar">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="visual-chart">
+                <div class="chart-grid"></div>
+                <svg viewBox="0 0 420 150" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M0 121 C45 120 56 72 98 78 C142 85 145 115 188 95 C222 79 236 33 282 47 C326 60 339 24 420 31" />
+                </svg>
+                <div class="chart-dot dot-one"></div>
+                <div class="chart-dot dot-two"></div>
+                <div class="chart-dot dot-three"></div>
+              </div>
+              <div class="visual-modules">
+                {project.modules.map((module, index) => (
+                  <div class="module-card">
+                    <span>0{index + 1}</span>
+                    <strong>{module}</strong>
+                    <i></i>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="visual-foot">
+            <span>SYSTEM VIEW</span>
+            <span>CONNECTED / MODULAR / OPERATIONAL</span>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
